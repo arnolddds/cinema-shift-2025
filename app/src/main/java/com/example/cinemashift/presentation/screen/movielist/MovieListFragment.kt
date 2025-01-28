@@ -9,11 +9,8 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.cinemashift.R
 import com.example.cinemashift.databinding.FragmentMovieListBinding
 import com.example.cinemashift.presentation.adapter.MovieListAdapter
-import com.example.cinemashift.presentation.model.MovieUI
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

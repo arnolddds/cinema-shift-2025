@@ -35,12 +35,7 @@ object NetworkModule {
                     .addHeader("accept", "application/json")
                     .addHeader("Content-Type", "application/json; charset=UTF-8")
                     .build()
-
-                Log.d("NetworkModule", "Request URL: ${request.url}")
                 val response = chain.proceed(request)
-                Log.d("NetworkModule", "Response code: ${response.code}")
-                Log.d("NetworkModule", "Response headers: ${response.headers}")
-
                 response
             }
             .addInterceptor(HttpLoggingInterceptor().apply {
@@ -53,7 +48,7 @@ object NetworkModule {
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient, gson: Gson): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://shift-intensive.ru/api/") // добавим /api/ в базовый URL
+            .baseUrl("https://shift-intensive.ru/api/")
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()

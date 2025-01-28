@@ -35,12 +35,7 @@ class MovieListViewModel @Inject constructor(
             try {
                 val movies = getTodayMoviesUseCase()
                 _movies.value = movies.map { it.toUI() }
-                Log.d("MovieListViewModel", "Loaded movies: ${movies.size}")
-                movies.forEach {
-                    Log.d("MovieListViewModel", "Movie: ${it.title}")
-                }
             } catch (e: Exception) {
-                Log.e("MovieListViewModel", "Error loading movies", e)
                 _error.value = e.message ?: "Неизвестная ошибка"
             } finally {
                 _loading.value = false
