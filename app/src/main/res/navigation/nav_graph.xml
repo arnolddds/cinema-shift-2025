@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/afishaFragment">
+
+    <fragment
+        android:id="@+id/afishaFragment"
+        android:name="com.example.cinemashift.presentation.ui.afisha.AfishaFragment"
+        android:label="AfishaFragment">
+
+        <action
+            android:id="@+id/actionAfishaToMovieDetails"
+            app:destination="@id/movieDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/movieDetailsFragment"
+        android:name="com.example.cinemashift.presentation.ui.presentation.MovieDetailsFragment"
+        android:label="MovieDetailsFragment">
+
+        <argument
+            android:name="movieId"
+            app:argType="string"
+            app:nullable="false" />
+    </fragment>
+
+</navigation>

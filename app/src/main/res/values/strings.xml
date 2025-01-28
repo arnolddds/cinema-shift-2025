@@ -1,3 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">CinemaShift</string>
+    <string name="app_name">Кинотеатр</string>
+    <string name="title_movie_list">Афиша</string>
+    <string name="movie_rating">Рейтинг: %.1f</string>
+    <string name="button_details">Подробнее</string>
+    <string name="error_loading_movies">Ошибка при загрузке фильмов</string>
+    <string name="retry_button">Повторить</string>
+    <string name="no_movies_available">Нет доступных сеансов на сегодня</string>
 </resources>

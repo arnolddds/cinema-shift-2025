@@ -1,6 +1,6 @@
-package com.example.cinemashift.domain.entity
+package com.example.cinemashift.presentation.model
 
-data class Movie(
+data class MovieUI(
     val id: Int,
     val title: String,
     val rating: Float,
