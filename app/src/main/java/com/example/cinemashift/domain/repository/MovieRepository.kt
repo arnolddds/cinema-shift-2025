@@ -1,4 +1,7 @@
 package com.example.cinemashift.domain.repository
 
-class MovieRepository {
+import com.example.cinemashift.domain.entity.Movie
+
+interface MovieRepository {
+    suspend fun getTodayMovies(): List<Movie>
 }
