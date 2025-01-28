@@ -6,6 +6,6 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface CinemaApiService {
-    @GET("/api/cinema/today")
+    @GET("cinema/today")
     suspend fun getTodayFilms(): FilmsResponse
 }
