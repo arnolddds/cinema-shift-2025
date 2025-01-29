@@ -1,11 +1,13 @@
 package com.example.cinemashift.presentation.screen.moviedeatail
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -40,6 +42,14 @@ class MovieDetailFragment : Fragment() {
         viewModel.loadMovie(args.movieId)
     }
 
+    private fun getRatingColor(rating: Float): Int {
+        return when {
+            rating >= 7.0f -> ContextCompat.getColor(requireContext(), R.color.rating_high)
+            rating >= 5.0f -> ContextCompat.getColor(requireContext(), R.color.rating_medium)
+            else -> ContextCompat.getColor(requireContext(), R.color.rating_low)
+        }
+    }
+
     private fun setupObservers() {
         viewModel.movie.observe(viewLifecycleOwner) { movie ->
             with(binding) {
@@ -53,14 +63,22 @@ class MovieDetailFragment : Fragment() {
                 descriptionTextView.text = movie.description
                 typeTextView.text = getString(R.string.movie_type_film)
                 ratingBar.rating = movie.rating / 2
-                kinopoiskRatingText.text = getString(
-                    R.string.kinopoisk_rating_format,
-                    movie.rating
-                )
+                kinopoiskRatingText.text = getString(R.string.kinopoisk_rating_format, movie.rating)
+
+
+                ratingBar.progressTintList = ColorStateList.valueOf(getRatingColor(movie.rating))
+                ratingBar.progressBackgroundTintList = ColorStateList.valueOf(getRatingColor(movie.rating))
+
+                val baseUrl = getString(R.string.base_image_url)
+                val imageUrl = if (movie.imageUrl.startsWith("http")) {
+                    movie.imageUrl
+                } else {
+                    baseUrl + movie.imageUrl
+                }
 
                 Glide.with(requireContext())
-                    .load("https://shift-intensive.ru${movie.imageUrl}")
-                    .centerCrop()
+                    .load(imageUrl)
+                    .fitCenter()  // используем fitCenter вместо centerCrop
                     .placeholder(R.drawable.placeholder_movie)
                     .error(R.drawable.error_movie)
                     .into(movieImageView)
