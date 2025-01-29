@@ -11,5 +11,6 @@
     <string name="genre_year_format">%1$s %2$s, %3$s</string>
     <string name="kinopoisk_rating_format">Kinopoisk - %1$.1f</string>
     <string name="movie_type_film">Фильм</string>
+    <string name="button_continue">Продолжить</string>
 
 </resources>
