@@ -70,7 +70,6 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>(
             } else {
                 baseUrl + movie.imageUrl
             }
-            Log.d("MovieViewHolder", "Image URL before loading: $imageUrl")
 
             Glide.with(context)
                 .load(imageUrl)
