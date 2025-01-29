@@ -1,7 +1,6 @@
 package com.example.cinemashift.presentation.adapter
 
 import android.content.res.ColorStateList
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,11 +11,11 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.cinemashift.R
-import com.example.cinemashift.presentation.model.MovieUI
+import com.example.cinemashift.domain.entity.Movie
 import com.google.android.material.button.MaterialButton
 
 class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>() {
-    private val movies = mutableListOf<MovieUI>()
+    private var movies: List<Movie> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -30,9 +29,8 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>(
 
     override fun getItemCount(): Int = movies.size
 
-    fun setMovies(newMovies: List<MovieUI>) {
-        movies.clear()
-        movies.addAll(newMovies)
+    fun setMovies(newMovies: List<Movie>) {
+        movies = newMovies
         notifyDataSetChanged()
     }
 
@@ -54,12 +52,17 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>(
             }
         }
 
-        fun bind(movie: MovieUI) {
+        fun bind(movie: Movie) {
             titleTextView.text = movie.title
             ratingBar.rating = movie.rating / 2
-            genreYearTextView.text = "${movie.genres.firstOrNull() ?: ""} ${movie.country}, ${movie.year}"
-            ratingTextView.text = "Kinopoisk - ${movie.rating}"
-            movieTypeTextView.text = "Фильм"
+            genreYearTextView.text = context.getString(
+                R.string.genre_year_format,
+                movie.genres.firstOrNull() ?: "",
+                movie.country,
+                movie.year
+            )
+            ratingTextView.text = context.getString(R.string.kinopoisk_rating_format, movie.rating)
+            movieTypeTextView.text = context.getString(R.string.movie_type_film)
 
             ratingBar.progressTintList = ColorStateList.valueOf(getRatingColor(movie.rating))
             ratingBar.progressBackgroundTintList = ColorStateList.valueOf(getRatingColor(movie.rating))
@@ -77,8 +80,6 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>(
                 .placeholder(R.drawable.placeholder_movie)
                 .error(R.drawable.error_movie)
                 .into(imageView)
-
-
 
             detailsButton.setOnClickListener {
                 // TODO: Обработка клика по кнопке Подробнее

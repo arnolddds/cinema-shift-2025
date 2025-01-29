@@ -34,6 +34,7 @@ class MovieListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         setupObservers()
+        viewModel.loadMovies()
     }
 
     private fun setupRecyclerView() {
