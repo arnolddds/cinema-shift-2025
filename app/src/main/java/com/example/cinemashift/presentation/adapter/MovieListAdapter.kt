@@ -14,13 +14,15 @@ import com.example.cinemashift.R
 import com.example.cinemashift.domain.entity.Movie
 import com.google.android.material.button.MaterialButton
 
-class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>() {
+class MovieListAdapter(
+    private val onMovieClick: (String) -> Unit
+) : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>() {
     private var movies: List<Movie> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_movie, parent, false)
-        return MovieViewHolder(view)
+        return MovieViewHolder(view, onMovieClick)
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
@@ -34,7 +36,10 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>(
         notifyDataSetChanged()
     }
 
-    class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class MovieViewHolder(
+        view: View,
+        private val onMovieClick: (String) -> Unit
+    ) : RecyclerView.ViewHolder(view) {
         private val titleTextView: TextView = view.findViewById(R.id.movieTitleTextView)
         private val ratingBar: RatingBar = view.findViewById(R.id.movieRatingBar)
         private val imageView: ImageView = view.findViewById(R.id.movieImageView)
@@ -58,8 +63,8 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>(
             genreYearTextView.text = context.getString(
                 R.string.genre_year_format,
                 movie.genres.firstOrNull() ?: "",
-                movie.country,
-                movie.year
+                movie.country.name,
+                movie.releaseDate
             )
             ratingTextView.text = context.getString(R.string.kinopoisk_rating_format, movie.rating)
             movieTypeTextView.text = context.getString(R.string.movie_type_film)
@@ -82,7 +87,7 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>(
                 .into(imageView)
 
             detailsButton.setOnClickListener {
-                // TODO: Обработка клика по кнопке Подробнее
+                onMovieClick(movie.id)
             }
         }
     }

@@ -12,9 +12,10 @@ class MovieRepositoryImpl @Inject constructor(
 ) : MovieRepository {
     override suspend fun getTodayMovies(): List<Movie> {
         val response = apiService.getTodayFilms()
-        response.films.forEach {
-            Log.d("MovieRepository", "Film: ${it.name}, Image path: ${it.img}")
-        }
         return response.films.map { it.toDomain() }
+    }
+
+    override suspend fun getMovie(id: String): Movie {
+        return apiService.getFilm(id).film.toDomain()
     }
 }
