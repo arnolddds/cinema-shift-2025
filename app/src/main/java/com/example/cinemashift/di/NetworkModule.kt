@@ -1,6 +1,5 @@
 package com.example.cinemashift.di
 
-import android.util.Log
 import com.example.cinemashift.data.api.CinemaApiService
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder

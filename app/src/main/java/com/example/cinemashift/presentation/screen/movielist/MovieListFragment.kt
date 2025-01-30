@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.cinemashift.databinding.FragmentMovieListBinding
 import com.example.cinemashift.presentation.adapter.MovieListAdapter
@@ -34,15 +35,21 @@ class MovieListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         setupObservers()
+        viewModel.loadMovies()
     }
 
     private fun setupRecyclerView() {
-        adapter = MovieListAdapter()
+        adapter = MovieListAdapter { movieId ->
+            findNavController().navigate(
+                MovieListFragmentDirections.toMovieDetail(movieId)
+            )
+        }
         binding.moviesRecyclerView.apply {
             adapter = this@MovieListFragment.adapter
             layoutManager = LinearLayoutManager(requireContext())
         }
     }
+
 
     private fun setupObservers() {
         viewModel.movies.observe(viewLifecycleOwner) { movies ->

@@ -2,27 +2,24 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/afishaFragment">
+    app:startDestination="@id/movieListFragment">
 
     <fragment
-        android:id="@+id/afishaFragment"
-        android:name="com.example.cinemashift.presentation.ui.afisha.AfishaFragment"
-        android:label="AfishaFragment">
-
+        android:id="@+id/movieListFragment"
+        android:name="com.example.cinemashift.presentation.screen.movielist.MovieListFragment"
+        android:label="MovieListFragment">
         <action
-            android:id="@+id/actionAfishaToMovieDetails"
-            app:destination="@id/movieDetailsFragment" />
+            android:id="@+id/toMovieDetail"
+            app:destination="@id/movieDetailFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/movieDetailsFragment"
-        android:name="com.example.cinemashift.presentation.ui.presentation.MovieDetailsFragment"
-        android:label="MovieDetailsFragment">
-
+        android:id="@+id/movieDetailFragment"
+        android:name="com.example.cinemashift.presentation.screen.moviedeatail.MovieDetailFragment"
+        android:label="MovieDetailFragment">
         <argument
             android:name="movieId"
-            app:argType="string"
-            app:nullable="false" />
+            app:argType="string" />
     </fragment>
 
 </navigation>

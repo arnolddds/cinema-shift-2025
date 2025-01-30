@@ -1,7 +1,6 @@
 package com.example.cinemashift.presentation.adapter
 
 import android.content.res.ColorStateList
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,16 +11,18 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.cinemashift.R
-import com.example.cinemashift.presentation.model.MovieUI
+import com.example.cinemashift.domain.entity.Movie
 import com.google.android.material.button.MaterialButton
 
-class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>() {
-    private val movies = mutableListOf<MovieUI>()
+class MovieListAdapter(
+    private val onMovieClick: (String) -> Unit
+) : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>() {
+    private var movies: List<Movie> = emptyList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_movie, parent, false)
-        return MovieViewHolder(view)
+        return MovieViewHolder(view, onMovieClick)
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
@@ -30,13 +31,15 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>(
 
     override fun getItemCount(): Int = movies.size
 
-    fun setMovies(newMovies: List<MovieUI>) {
-        movies.clear()
-        movies.addAll(newMovies)
+    fun setMovies(newMovies: List<Movie>) {
+        movies = newMovies
         notifyDataSetChanged()
     }
 
-    class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class MovieViewHolder(
+        view: View,
+        private val onMovieClick: (String) -> Unit
+    ) : RecyclerView.ViewHolder(view) {
         private val titleTextView: TextView = view.findViewById(R.id.movieTitleTextView)
         private val ratingBar: RatingBar = view.findViewById(R.id.movieRatingBar)
         private val imageView: ImageView = view.findViewById(R.id.movieImageView)
@@ -54,12 +57,17 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>(
             }
         }
 
-        fun bind(movie: MovieUI) {
+        fun bind(movie: Movie) {
             titleTextView.text = movie.title
             ratingBar.rating = movie.rating / 2
-            genreYearTextView.text = "${movie.genres.firstOrNull() ?: ""} ${movie.country}, ${movie.year}"
-            ratingTextView.text = "Kinopoisk - ${movie.rating}"
-            movieTypeTextView.text = "Фильм"
+            genreYearTextView.text = context.getString(
+                R.string.genre_year_format,
+                movie.genres.firstOrNull() ?: "",
+                movie.country.name,
+                movie.releaseDate
+            )
+            ratingTextView.text = context.getString(R.string.kinopoisk_rating_format, movie.rating)
+            movieTypeTextView.text = context.getString(R.string.movie_type_film)
 
             ratingBar.progressTintList = ColorStateList.valueOf(getRatingColor(movie.rating))
             ratingBar.progressBackgroundTintList = ColorStateList.valueOf(getRatingColor(movie.rating))
@@ -78,10 +86,8 @@ class MovieListAdapter : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>(
                 .error(R.drawable.error_movie)
                 .into(imageView)
 
-
-
             detailsButton.setOnClickListener {
-                // TODO: Обработка клика по кнопке Подробнее
+                onMovieClick(movie.id)
             }
         }
     }
