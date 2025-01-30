@@ -11,7 +11,6 @@ import com.example.cinemashift.domain.usecases.GetMovieByIdUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.coroutines.cancellation.CancellationException
 
 @HiltViewModel
 class MovieDetailViewModel @Inject constructor(
@@ -39,10 +38,10 @@ class MovieDetailViewModel @Inject constructor(
             try {
                 val movie = getMovieByIdUseCase(movieId)
                 _movie.value = movie
+
                 val scheduleResponse = apiService.getSchedule(movieId)
                 _schedule.value = scheduleResponse.schedules
-            } catch (e: CancellationException) {
-                throw e
+
             } catch (e: Exception) {
                 _error.value = e.message ?: "Error"
             } finally {

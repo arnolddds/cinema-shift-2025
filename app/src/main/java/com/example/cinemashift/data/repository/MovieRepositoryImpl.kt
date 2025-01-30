@@ -1,6 +1,5 @@
 package com.example.cinemashift.data.repository
 
-import android.util.Log
 import com.example.cinemashift.data.api.CinemaApiService
 import com.example.cinemashift.data.model.response.mapper.toDomain
 import com.example.cinemashift.domain.entity.Movie

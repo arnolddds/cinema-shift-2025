@@ -1,7 +1,6 @@
 package com.example.cinemashift.data.api
 
 import com.example.cinemashift.data.model.response.FilmDetailResponse
-import com.example.cinemashift.data.model.response.FilmResponse
 import com.example.cinemashift.data.model.response.FilmsResponse
 import com.example.cinemashift.data.model.response.ScheduleResponse
 import retrofit2.http.GET
