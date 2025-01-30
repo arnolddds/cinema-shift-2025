@@ -3,7 +3,7 @@
     <string name="app_name">Кинотеатр</string>
     <string name="title_movie_list">Афиша</string>
     <string name="movie_rating">Рейтинг: %.1f</string>
-    <string name="button_details">Подробнее</string>
+    <string name="button_details">Продолжить</string>
     <string name="error_loading_movies">Ошибка при загрузке фильмов</string>
     <string name="retry_button">Повторить</string>
     <string name="no_movies_available">Нет доступных сеансов на сегодня</string>
@@ -12,5 +12,9 @@
     <string name="kinopoisk_rating_format">Kinopoisk - %1$.1f</string>
     <string name="movie_type_film">Фильм</string>
     <string name="button_continue">Продолжить</string>
-
+    <string name="button_expand">раскрыть</string>
+    <string name="button_collapse">свернуть</string>
+    <string name="movie_text">Фильм</string>
+    <string name="about_movie_text">О фильме</string>
+    <string name="kp_rating">Kinopoisk - 8.4</string>
 </resources>

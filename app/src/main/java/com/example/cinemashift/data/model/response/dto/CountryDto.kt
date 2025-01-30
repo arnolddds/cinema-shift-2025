@@ -1,6 +1,6 @@
-package com.example.cinemashift.data.model.response
+package com.example.cinemashift.data.model.response.dto
 
-data class CountryResponse(
+data class CountryDto(
     val name: String,
     val code: String,
     val code2: String,

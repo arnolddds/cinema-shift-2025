@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.cinemashift.domain.entity.Movie
 import com.example.cinemashift.domain.usecase.GetTodayMoviesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
