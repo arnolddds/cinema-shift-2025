@@ -17,4 +17,8 @@
     <string name="movie_text">Фильм</string>
     <string name="about_movie_text">О фильме</string>
     <string name="kp_rating">Kinopoisk - 8.4</string>
+    <string name="details_button">Подробнее</string>
+    <string name="no_seances">Сеансов нет</string>
+    <string name="back_button_description">Назад</string>
+    <string name="movie_image_description">Постер</string>
 </resources>

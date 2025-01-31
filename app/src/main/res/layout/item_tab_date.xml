@@ -3,7 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp"
+    android:padding="10dp"
     android:gravity="center">
 
     <TextView
@@ -11,14 +11,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="14sp"
-        android:textColor="?attr/colorOnSurface"
+        android:textColor="@color/black"
         android:text="Пн" />
 
     <TextView
         android:id="@+id/dateText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:textColor="?attr/colorOnSurface"
-        android:text="1 янв" />
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:text="9 янв" />
 </LinearLayout>

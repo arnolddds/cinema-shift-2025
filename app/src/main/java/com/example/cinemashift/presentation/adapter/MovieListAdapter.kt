@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.cinemashift.R
 import com.example.cinemashift.domain.entity.Movie
-import com.example.cinemashift.presentation.screen.movielist.MovieListViewModel
 import com.google.android.material.button.MaterialButton
 
 class MovieListAdapter(
@@ -20,21 +19,9 @@ class MovieListAdapter(
 ) : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>() {
     private var movies: List<Movie> = emptyList()
 
-    fun updateState(state: MovieListViewModel.UiState) {
-        when (state) {
-            is MovieListViewModel.UiState.Success -> {
-                movies = state.movies
-                notifyDataSetChanged()
-            }
-            is MovieListViewModel.UiState.Loading -> {
-                movies = emptyList()
-                notifyDataSetChanged()
-            }
-            is MovieListViewModel.UiState.Error -> {
-                movies = emptyList()
-                notifyDataSetChanged()
-            }
-        }
+    fun updateMovies(movies: List<Movie>) {
+        this.movies = movies
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
@@ -115,3 +102,4 @@ class MovieListAdapter(
         }
     }
 }
+
