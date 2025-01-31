@@ -17,4 +17,5 @@
     <string name="movie_text">Фильм</string>
     <string name="about_movie_text">О фильме</string>
     <string name="kp_rating">Kinopoisk - 8.4</string>
+    <string name="details_button">Подробнее</string>
 </resources>

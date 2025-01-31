@@ -4,7 +4,6 @@ package com.example.cinemashift.data.repository
 import com.example.cinemashift.data.api.CinemaApiService
 import com.example.cinemashift.data.model.response.mapper.toDomain
 import com.example.cinemashift.domain.entity.Movie
-import com.example.cinemashift.domain.entity.Schedule
 import com.example.cinemashift.domain.repository.MovieRepository
 import javax.inject.Inject
 
@@ -19,10 +18,5 @@ class MovieRepositoryImpl @Inject constructor(
     override suspend fun getMovie(id: String): Movie {
         return apiService.getFilm(id).film.toDomain()
     }
-
-    override suspend fun getSchedule(movieId: String): List<Schedule> {
-        return apiService.getSchedule(movieId).schedules
-    }
-
 
 }

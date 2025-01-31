@@ -5,8 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.cinemashift.domain.entity.Movie
-import com.example.cinemashift.domain.usecase.GetTodayMoviesUseCase
+import com.example.cinemashift.domain.usecases.GetTodayMoviesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -16,27 +15,23 @@ class MovieListViewModel @Inject constructor(
     private val getTodayMoviesUseCase: GetTodayMoviesUseCase
 ) : ViewModel() {
 
-    sealed class UiState {
-        object Loading : UiState()
-        data class Success(val movies: List<Movie>) : UiState()
-        data class Error(val message: String) : UiState()
-    }
-
-    private val _uiState = MutableLiveData<UiState>()
-    val uiState: LiveData<UiState> = _uiState
+    private val _uiState = MutableLiveData<MovieListUiState>(MovieListUiState.Initial)
+    val uiState: LiveData<MovieListUiState> = _uiState
 
     fun loadMovies() {
         viewModelScope.launch {
-            _uiState.value = UiState.Loading
+            _uiState.value = MovieListUiState.Loading
             try {
                 val movies = getTodayMoviesUseCase()
-                _uiState.value = UiState.Success(movies)
+                _uiState.value = MovieListUiState.Success(movies)
             } catch (e: Exception) {
-                _uiState.value = UiState.Error(e.message ?: "Unknown error")
+                _uiState.value = MovieListUiState.Error(e.message ?: "Unknown error")
             }
         }
     }
 }
+
+
 
 
 

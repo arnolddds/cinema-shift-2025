@@ -53,20 +53,27 @@ class MovieListFragment : Fragment() {
     private fun setupObservers() {
         viewModel.uiState.observe(viewLifecycleOwner) { state ->
             when (state) {
-                is MovieListViewModel.UiState.Success -> {
+                is MovieListUiState.Success -> {
                     binding.progressBar.isVisible = false
-                    adapter.updateState(state)
+                    adapter.updateMovies(state.movies)
                 }
-                is MovieListViewModel.UiState.Loading -> {
+
+                is MovieListUiState.Loading -> {
                     binding.progressBar.isVisible = true
                 }
-                is MovieListViewModel.UiState.Error -> {
+
+                is MovieListUiState.Error -> {
                     binding.progressBar.isVisible = false
                     Toast.makeText(requireContext(), state.message, Toast.LENGTH_LONG).show()
+                }
+
+                is MovieListUiState.Initial -> {
+                    binding.progressBar.isVisible = false
                 }
             }
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

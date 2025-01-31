@@ -1,4 +1,4 @@
-package com.example.cinemashift.domain.usecase
+package com.example.cinemashift.domain.usecases
 
 import com.example.cinemashift.domain.entity.Movie
 import com.example.cinemashift.domain.repository.MovieRepository
