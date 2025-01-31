@@ -50,19 +50,20 @@ class MovieListFragment : Fragment() {
         }
     }
 
-
     private fun setupObservers() {
-        viewModel.movies.observe(viewLifecycleOwner) { movies ->
-            adapter.setMovies(movies)
-        }
-
-        viewModel.loading.observe(viewLifecycleOwner) { isLoading ->
-            binding.progressBar.isVisible = isLoading
-        }
-
-        viewModel.error.observe(viewLifecycleOwner) { error ->
-            if (error.isNotEmpty()) {
-                Toast.makeText(requireContext(), error, Toast.LENGTH_LONG).show()
+        viewModel.uiState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is MovieListViewModel.UiState.Success -> {
+                    binding.progressBar.isVisible = false
+                    adapter.updateState(state)
+                }
+                is MovieListViewModel.UiState.Loading -> {
+                    binding.progressBar.isVisible = true
+                }
+                is MovieListViewModel.UiState.Error -> {
+                    binding.progressBar.isVisible = false
+                    Toast.makeText(requireContext(), state.message, Toast.LENGTH_LONG).show()
+                }
             }
         }
     }
