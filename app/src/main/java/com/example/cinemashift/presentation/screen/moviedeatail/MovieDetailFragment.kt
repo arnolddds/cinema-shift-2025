@@ -45,7 +45,6 @@ class MovieDetailFragment : Fragment() {
     private val args: MovieDetailFragmentArgs by navArgs()
     private val viewModel: MovieDetailViewModel by viewModels()
     private var isDescriptionExpanded = false
-
     private val selectedButtons = mutableMapOf<String, MaterialButton?>()
 
     override fun onCreateView(
@@ -60,8 +59,8 @@ class MovieDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setupClickListeners()
-        setupObservers()
-        viewModel.loadMovie(args.movieId)
+        observeState()
+        loadData()
     }
 
     private fun setupClickListeners() {
@@ -73,13 +72,54 @@ class MovieDetailFragment : Fragment() {
             expandButton.setOnClickListener {
                 toggleDescription()
             }
+
+            errorLayout.retryButton.setOnClickListener {
+                loadData()
+            }
         }
     }
 
-    private fun setupObservers() {
-        viewModel.movie.observe(viewLifecycleOwner, ::bindMovieData)
-        viewModel.schedule.observe(viewLifecycleOwner, ::setupDaysTabs)
-        viewModel.error.observe(viewLifecycleOwner, ::showError)
+    private fun observeState() {
+        viewModel.uiState.observe(viewLifecycleOwner) { state ->
+            when (state) {
+                is MovieDetailUiState.Loading -> showLoading()
+                is MovieDetailUiState.Success -> showContent(state.movie, state.schedule)
+                is MovieDetailUiState.Error -> showError(state.message)
+            }
+        }
+    }
+
+    private fun showLoading() {
+        binding.apply {
+            progressBar.isVisible = true
+            contentContainer.isVisible = false
+            errorLayout.root.isVisible = false
+        }
+    }
+
+    private fun showContent(movie: Movie, schedule: List<Schedule>) {
+        binding.apply {
+            progressBar.isVisible = false
+            contentContainer.isVisible = true
+            errorLayout.root.isVisible = false
+            bindMovieData(movie)
+            setupDaysTabs(schedule)
+        }
+    }
+
+    private fun showError(message: String) {
+        binding.apply {
+            progressBar.isVisible = false
+            contentContainer.isVisible = false
+            errorLayout.apply {
+                root.isVisible = true
+                errorMessageText.text = message
+            }
+        }
+    }
+
+    private fun loadData() {
+        viewModel.loadMovie(args.movieId)
     }
 
     private fun toggleDescription() {
@@ -309,13 +349,6 @@ class MovieDetailFragment : Fragment() {
         }
     }
 
-
-
-    private fun showError(error: String) {
-        if (error.isNotEmpty()) {
-            Toast.makeText(requireContext(), error, Toast.LENGTH_LONG).show()
-        }
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()
