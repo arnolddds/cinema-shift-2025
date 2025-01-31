@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="8dp"
+    android:padding="10dp"
     android:gravity="center">
 
     <TextView
@@ -12,14 +11,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="14sp"
-        android:textColor="?attr/colorOnSurface"
-        tools:text="Пн" />
+        android:textColor="@color/black"
+        android:text="Пн" />
 
     <TextView
         android:id="@+id/dateText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:textColor="?attr/colorOnSurface"
-        tools:text="1 янв" />
+        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:text="9 янв" />
 </LinearLayout>

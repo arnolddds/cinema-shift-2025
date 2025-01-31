@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bumptech.glide.load.HttpException
 import com.example.cinemashift.domain.usecases.GetMovieByIdUseCase
 import com.example.cinemashift.domain.usecases.GetMovieScheduleUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -37,7 +36,6 @@ class MovieDetailViewModel @Inject constructor(
                 _uiState.value = MovieDetailUiState.Error(
                     when (e) {
                         is IOException -> "Проверьте подключение к интернету"
-                        is HttpException -> "Ошибка сервера"
                         else -> "Что-то пошло не так"
                     }
                 )

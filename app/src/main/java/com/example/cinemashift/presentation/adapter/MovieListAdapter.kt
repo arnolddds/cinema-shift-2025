@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.cinemashift.R
 import com.example.cinemashift.domain.entity.Movie
-import com.example.cinemashift.presentation.screen.movielist.MovieListUiState
 import com.google.android.material.button.MaterialButton
 
 class MovieListAdapter(

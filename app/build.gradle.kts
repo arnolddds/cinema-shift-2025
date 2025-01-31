@@ -55,6 +55,7 @@ dependencies {
     implementation(libs.androidx.espresso.core)
     implementation(libs.dagger.hilt.android)
     implementation(libs.retrofit)
+    implementation(libs.material.v1110)
     implementation(libs.converter.gson)
     implementation(libs.logging.interceptor)
     implementation(libs.flexbox)
